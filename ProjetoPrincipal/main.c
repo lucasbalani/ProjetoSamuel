@@ -49,7 +49,7 @@ void mostrarLista(char* letra){
 	Contatos *auxiliar = primeira;
 	
 	//Valida se o campo nao está em branco(se estiver mostrará todos os contatos, sem o filtro)
-	if (letra == ""){
+	if (letra == "all"){
 		
 		//Este while percorre a lista toda
 		while(auxiliar != NULL){
@@ -101,36 +101,57 @@ Contatos* deletarContato(int pk){
 		
 }
 
-int main(int argc, char *argv[]) {
-	setlocale(LC_ALL,"PORTUGUESE");
-	int option = 0;
-	
-	int pk;
+void cadastrarContato(){
+	int pk;	
 	char nome[100];
 	char telefone[30];
 	char endereco[300];
+			
+	printf("Digite o ID do contato - ");
+	scanf("%d", &pk);
+			
+	printf("\nDigite o nome do contato - ");
+	scanf("%s", &nome);
+
+	printf("\nDigite o telefone do contato - ");
+	scanf("%s", &telefone);
+
+	printf("\nDigite o endereço do contato - ");
+	scanf("%s", &endereco); 
+	
+	adicionar(pk, nome, telefone, endereco);
+}
+
+int main(int argc, char *argv[]) {
+	setlocale(LC_ALL,"PORTUGUESE");
+	int option = 0;
+	char letra[1];
+	int pk;
+
 	
 	
 	//Motor repetiçao menu
 	while(option != 4){
-		printf("[LISTA TELEFONICA]\n 1 - Adicionar um contato\n 2 - Remover contato\n 3 - Mostrar Contatos\n 4 - Sair\n");
+		
+		fflush(stdin);
+		printf("[LISTA TELEFONICA]\n 1 - Adicionar um contato\n 2 - Mostrar contatos\n 3 - Deletar Contato\n 4 - Sair\n");
 		scanf("%d", &option);
-
-		if(option == 1){
-			printf("Digite o ID do contato - ");
-			scanf("%d", &pk);
-
-			printf("\nDigite o nome do contato - ");
-			scanf("%s", &nome);
-
-			printf("\nDigite o telefone do contato - ");
-			scanf("%s", &telefone);
-
-			printf("\nDigite o endereço do contato - ");
-			scanf("%s", &endereco); 
-	
-			adicionar(pk, nome, telefone, endereco);
+		switch(option){
+		 case 1:
+			cadastrarContato();
+			break;
+		 case 2:
+		 	printf("Deseja filtrar por qual letra ? (Se quiser listar sem filtro digite - all)");
+		 	scanf("%s", &letra);
+		 	mostrarLista(letra);
+		 	break;
+		 case 3:
+		 	printf("Qual o id que deseja deletar?\n");
+		 	scanf("%d", pk);
+		 	break;
 		}
+		
+		
 		
  	}
  	
