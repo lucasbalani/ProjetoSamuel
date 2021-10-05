@@ -73,27 +73,38 @@ void mostrarLista(char* letra){
 }
 
 Contatos* deletarContato(int pk){
-	Contatos* atual = primeira;
-	Contatos* anterior = NULL;
+	Contatos *atual = primeira;
+	Contatos *anterior = NULL;
 	
 	//Testa se a lista é nula
 	if (primeira == NULL){
 		return NULL;
 	}
 	
-	
+	//Este while vai percorrer a lista ate achar o ID digitado
 	while(atual->PK != pk){
+		
+		//checa se o proximo endereço do ponteiro atual é igual a Nulo
 		if(atual->proximo == NULL){
 			return NULL;
 		} else {
+			
+			//o no anterior passa a valer o atual
 			anterior = atual;
+			
+			//o no atual recebe o endereço do proximo no
 			atual = atual->proximo;
 		}
 	}
 	
+	//Checa se o nó atual é igual ao primeiro nó
 	if(atual == primeira){
+		
+		//o primeiro nó recebe o valor do proximo no
 		primeira = primeira->proximo;
 	}else{
+		
+		//o proximo nó do endereço anterior recebe o proximo nó da atual
 		anterior->proximo = atual->proximo;
 	}
 	
@@ -106,7 +117,8 @@ void cadastrarContato(){
 	char nome[100];
 	char telefone[30];
 	char endereco[300];
-			
+	
+	//Leitura dos dados
 	printf("Digite o ID do contato - ");
 	scanf("%d", &pk);
 			
@@ -119,13 +131,15 @@ void cadastrarContato(){
 	printf("\nDigite o endereço do contato - ");
 	scanf("%s", &endereco); 
 	
+	
+	//adiciona na lista
 	adicionar(pk, nome, telefone, endereco);
 }
 
 int main(int argc, char *argv[]) {
 	setlocale(LC_ALL,"PORTUGUESE");
 	int option = 0;
-	char letra[1];
+	char letra[10];
 	int pk;
 
 	
@@ -148,6 +162,7 @@ int main(int argc, char *argv[]) {
 		 case 3:
 		 	printf("Qual o id que deseja deletar?\n");
 		 	scanf("%d", pk);
+		 	deletarContato(pk);
 		 	break;
 		}
 		
